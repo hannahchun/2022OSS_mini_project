@@ -70,3 +70,24 @@ void searchPrice(Product *p, int count){
     if(scnt==0) printf("\n=>검색된 데이터 없음!\n");
 }
 
+void saveData(Product *p, int count){
+    FILE *fp;
+    fp=fopen("fruit.txt","wt");
+
+    for(int i=0 ; i<count ; i++){
+        if(p[i].price==-1) continue;
+        fprintf(fp,"%s ",p[i].origin);
+        fputs(p[i].name,fp);
+        fputs("\n",fp);
+        fputs(p[i].des,fp);
+        fputs("\n",fp);
+        fprintf(fp,"%s %d ",p[i].weight,p[i].price);
+        if(p[i].dil==1)
+            fputs("새벽 배송\n",fp);
+        if(p[i].dil==2)
+            fputs("택배 배송\n",fp);
+    }
+    fclose(fp);
+    printf("\n저장됨!\n");
+}
+
