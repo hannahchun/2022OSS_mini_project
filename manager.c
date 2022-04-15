@@ -91,3 +91,36 @@ void saveData(Product *p, int count){
     printf("\n저장됨!\n");
 }
 
+int loadData(Product *p){
+    int i=0;
+    char tmp[20];
+    FILE *fp;
+    fp=fopen("fruit.txt","rt");
+    if(fp==NULL)
+        return 0;
+
+    for(i=0 ; i<100 ; i++){
+        //origin
+        int ret=fscanf(fp,"%s ",p[i].origin);
+        if(ret==EOF)
+            break;
+        //name
+        fgets(p[i].name,sizeof(p[i].name),fp);
+        p[i].name[strlen(p[i].name)-1]='\0';
+        //description
+        fgets(p[i].des, sizeof(p[i].des),fp);
+        p[i].des[strlen(p[i].des)-1]='\0';
+        //weight, price
+        fscanf(fp,"%s %d ",p[i].weight, &p[i].price);
+        //size
+        fgets(tmp, sizeof(tmp),fp);
+        if(strcmp(tmp,"새벽 배송"))
+            p[i].dil=1;
+        if(strcmp(tmp,"택배 배송"))
+            p[i].dil=2;
+    }
+    fclose(fp);
+    printf("\n=>로딩 성공!\n");
+    return i;
+}
+
