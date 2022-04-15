@@ -53,3 +53,20 @@ void searchOrigin(Product *p, int count){
     if(scnt==0) printf("\n=>검색된 데이터 없음!\n");
 }
 
+void searchPrice(Product *p, int count){
+    int scnt=0;
+    int searchprice=0;
+    ClearReadBuffer();
+    printf("검색할 과일 가격? ");
+    scanf("%d",&searchprice);
+
+    for(int i=0 ; i<count ; i++){
+        if(p[i].price==-1) continue;
+        if(p[i].price==searchprice){
+            readProduct(p[i]);
+            scnt++;
+        }
+    }
+    if(scnt==0) printf("\n=>검색된 데이터 없음!\n");
+}
+
